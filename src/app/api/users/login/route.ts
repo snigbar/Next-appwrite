@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     // checking if the user doesn't exists 
 
     if(!user) return NextResponse.json({error: "no user found with this email"},{status: 400})
-    const isValidPassword = bcryptjs.compare(password, password)
+    const isValidPassword = bcryptjs.compare(password, user.password)
     if(!isValidPassword) return NextResponse.json({error: "not valid password"}, {status: 400})
 
     // create token
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
     return response;
 
 }catch(error:any){
-    console.log(error)
+
     return NextResponse.json({error: error.message},{status: 500})
 }
 
